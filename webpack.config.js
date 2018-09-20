@@ -7,7 +7,9 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
     filename: 'build.js',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    library: 'HcWaterProviders',
+    libraryExport: 'default'
   },
   module: {
     rules: [

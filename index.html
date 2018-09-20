@@ -15,16 +15,18 @@
   <div id="hc-main">
 
     <!-- https://www.w3.org/WAI/GL/2016/WD-WCAG20-TECHS-20160105/G1 -->
-    <nav is="hc-navigation" logo-href="./" skip-content-link="#main-content"></nav>
+    <nav is="hc-navigation" logo-href="http://hcflgov.net" skip-content-link="#main-content"></nav>
 
 
-    <ol is="hc-banner" title="Page Title">
+    <ol is="hc-banner" title="Water & Sewer Provider">
       <!-- ancestors -->
-      <li class="breadcrumb-item"><a href="./">Home</a></li>
+      <li class="breadcrumb-item"><a href="http://hcflgov.net">Home</a></li>
     </ol>
 
-    <div id="main-content">
-      <div id="app"></div>
+    <div id="main-content" class="py-5">
+      <div class="container">
+        <div id="app"></div>
+      </div>
     </div>
 
     <footer is="hc-footer"></footer>
@@ -37,5 +39,19 @@
   <script type="text/javascript" src="https://commbocc.github.io/html-wrapper/static/js/app.js"></script>
 
   <script src="./dist/build.js"></script>
+  <script type="text/javascript">
+  var app = new HcWaterProviders({
+    propsData: {
+      endpoints: {
+        areas: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/DSD_Viewer_Services/DSD_Viewer_Governance/MapServer/1',
+        hcWater: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/CSC_Viewer/Utilities_Service_Areas/MapServer/3',
+        hcWaste: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/CSC_Viewer/Utilities_Service_Areas/MapServer/2',
+        cotWaste: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/CSC_Viewer/Utilities_Service_Areas/MapServer/1',
+        cotWater: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/CSC_Viewer/Utilities_Service_Areas/MapServer/0',
+        providers: './dist/providers.json'
+      }
+    }
+  }).$mount('#app')
+  </script>
 </body>
 </html>
