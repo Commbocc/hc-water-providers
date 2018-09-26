@@ -3,11 +3,11 @@
 
     <form is="HcEsriSearchWidget" @submit="reset" @result="handleResult"></form>
 
-    <table v-if="matchedAddr" class="table table-striped table-bordered">
+    <table v-if="foundAddr" class="table table-striped table-bordered">
       <thead class="bg-secondary text-white">
         <tr>
           <th colspan="2">
-            Results for: {{ matchedAddr }}
+            Results for: {{ foundAddr }}
           </th>
         </tr>
       </thead>
@@ -43,7 +43,7 @@ export default {
   data () {
     return {
       providers: [],
-      matchedAddr: null,
+      foundAddr: null,
       incorporated: null,
       hcWater: null,
       hcWaste: null,
@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     reset (e) {
-      this.matchedAddr = null
+      this.foundAddr = null
       this.incorporated = null
       this.hcWater = null
       this.hcWaste = null
@@ -66,7 +66,7 @@ export default {
     },
     handleResult (result) {
       if (result.result) {
-        this.matchedAddr = result.result.feature.attributes.Match_addr
+        this.foundAddr = result.result.name
       }
 
       let promises = [
