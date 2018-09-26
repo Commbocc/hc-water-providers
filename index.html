@@ -12,24 +12,31 @@
 </head>
 <body>
 
-  <div id="hc-main">
+  <div id="hc-main" class="d-flex flex-column">
 
-    <!-- https://www.w3.org/WAI/GL/2016/WD-WCAG20-TECHS-20160105/G1 -->
-    <nav is="hc-navigation" logo-href="http://hcflgov.net" skip-content-link="#main-content"></nav>
+    <header>
+      <!-- https://www.w3.org/WAI/GL/2016/WD-WCAG20-TECHS-20160105/G1 -->
+      <nav is="hc-navigation" logo-href="http://hcflgov.net" skip-content-link="#main-content"></nav>
 
-
-    <ol is="hc-banner" title="Water & Sewer Provider">
-      <!-- ancestors -->
-      <li class="breadcrumb-item"><a href="http://hcflgov.net">Home</a></li>
-    </ol>
+      <ol is="hc-banner" title="Water & Sewer Provider">
+        <!-- ancestors -->
+        <li class="breadcrumb-item"><a href="http://hcflgov.net">Home</a></li>
+      </ol>
+    </header>
 
     <div id="main-content" class="py-5">
       <div class="container">
+
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+
         <div id="app"></div>
+
       </div>
     </div>
 
-    <footer is="hc-footer"></footer>
+    <footer is="hc-footer" class="mt-auto"></footer>
 
   </div>
 
@@ -42,12 +49,15 @@
   <script type="text/javascript">
   var app = new HcWaterProviders({
     propsData: {
+      resultNoProvider: 'Outside Service Areas (Well/Septic)',
+      resultNoResult: 'Your water provider could not be determined.',
       endpoints: {
         areas: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/DSD_Viewer_Services/DSD_Viewer_Governance/MapServer/1',
         hcWater: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/CSC_Viewer/Utilities_Service_Areas/MapServer/3',
         hcWaste: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/CSC_Viewer/Utilities_Service_Areas/MapServer/2',
         cotWaste: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/CSC_Viewer/Utilities_Service_Areas/MapServer/1',
         cotWater: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/CSC_Viewer/Utilities_Service_Areas/MapServer/0',
+        // providers: 'https://commbocc.github.io/hc-water-providers/dist/providers.json'
         providers: './dist/providers.json'
       }
     }

@@ -4,7 +4,7 @@
     <form is="HcEsriSearchWidget" @submit="reset" @result="handleResult"></form>
 
     <table v-if="matchedAddr" class="table table-striped table-bordered">
-      <thead>
+      <thead class="bg-secondary text-white">
         <tr>
           <th colspan="2">
             Results for: {{ matchedAddr }}
@@ -14,20 +14,17 @@
       <tbody>
         <tr>
           <th width="33.3%">Water Provider</th>
-          <td>{{ waterProvider }}</td>
+          <td>
+            <div is="Provider" :provider="provider(waterProviderIndex)"></div>
+          </td>
         </tr>
         <tr>
           <th>Waste Water Provider</th>
-          <td>{{ wasteProvider }}</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="2" class="py-1 text-right">
-            <a href="https://service.hillsboroughcounty.org/311/water-sewer/" target="_blank">Water &amp; Sewer Requests</a>
+          <td>
+            <div is="Provider" :provider="provider(wasteProviderIndex)"></div>
           </td>
         </tr>
-      </tfoot>
+      </tbody>
     </table>
 
     <pre v-if="false" class="bg-dark text-white p-3">{{ $data }}</pre>
@@ -37,21 +34,23 @@
 
 <script>
 import HcEsriSearchWidget from 'hc-esri-search-widget'
+import Provider from './components/Provider'
 
 export default {
   name: 'app',
-  props: ['endpoints'],
-  components: { HcEsriSearchWidget },
+  props: ['endpoints', 'resultNoProvider', 'resultNoProvider', 'resultNoResult'],
+  components: { HcEsriSearchWidget, Provider },
   data () {
     return {
+      providers: [],
       matchedAddr: null,
       incorporated: null,
       hcWater: null,
       hcWaste: null,
       cotWater: null,
       cotWaste: null,
-      waterProvider: null,
-      wasteProvider: null
+      waterProviderIndex: null,
+      wasteProviderIndex: null
     }
   },
   methods: {
@@ -62,8 +61,8 @@ export default {
       this.hcWaste = null
       this.cotWater = null
       this.cotWaste = null
-      this.waterProvider = null
-      this.wasteProvider = null
+      this.waterProviderIndex = null
+      this.wasteProviderIndex = null
     },
     handleResult (result) {
       if (result.result) {
@@ -98,44 +97,51 @@ export default {
     determineWater () {
       // plant city?
       if (this.incorporated && this.incorporated == 'PLANT CITY') {
-        this.waterProvider = 'Plant City'
+        this.waterProviderIndex = 0
       }
       // hillsborough?
       else if (this.hcWater) {
-        this.waterProvider = 'Hillsborough County'
+        this.waterProviderIndex = 1
       }
       // tampa?
       else if (this.cotWater) {
-        this.waterProvider = 'City of Tampa'
+        this.waterProviderIndex = 2
       }
       // no service
       else {
-        this.waterProvider = 'Well/Septic - Request Service'
+        this.waterProviderIndex = false
       }
     },
     determineWaste () {
       // plant city?
       if (this.incorporated && this.incorporated == 'PLANT CITY') {
-        this.wasteProvider = 'Plant City'
+        this.wasteProviderIndex = 0
       }
       // hillsborough?
       else if (this.hcWaste) {
-        this.wasteProvider = 'Hillsborough County'
+        this.wasteProviderIndex = 1
       }
       // tampa?
       else if (this.cotWaste) {
-        this.wasteProvider = 'City of Tampa'
+        this.wasteProviderIndex = 2
       }
       // no service
       else {
-        this.wasteProvider = 'Well/Septic - Request Service'
+        this.wasteProviderIndex = false
+      }
+    },
+    provider (index) {
+      if (index) {
+        return this.providers[index]
+      } else {
+        return index
       }
     }
-  // },
-  // created () {
-  //   fetch(this.endpoints.providers).then(res => res.json()).then(providers => {
-  //     this.providers = providers
-  //   })
+  },
+  created () {
+    fetch(this.endpoints.providers).then(res => res.json()).then(providers => {
+      this.providers = providers
+    })
   }
 }
 </script>
