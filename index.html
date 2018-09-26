@@ -45,6 +45,11 @@
   <script type="text/javascript" src="https://commbocc.github.io/html-wrapper/static/js/vendor.js"></script>
   <script type="text/javascript" src="https://commbocc.github.io/html-wrapper/static/js/app.js"></script>
 
+  <!-- include babel-polyfill for IE11 Promise support -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+  <!-- include polyfill for IE11 fetch support -->
+  <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@2.0.3/fetch.min.js"></script>
+
   <script src="./dist/build.js"></script>
   <script type="text/javascript">
   var app = new HcWaterProviders({
