@@ -16,7 +16,7 @@ var providers = [
     website: 'https://www.hillsboroughcounty.org/residents/property-owners-and-renters/water-and-sewer',
     address: '925 E. Twiggs Street, Tampa, FL 33602',
     phone: '(813) 272-6680',
-    email: 'mailto:WaterResourcesTeam@hillsboroughcounty.org'
+    email: 'mailto:PublicUtilities@HCFLGov.net'
   },
   {
     id: 2,
