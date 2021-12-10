@@ -136,4 +136,4 @@ export default {
 };
 </script>
 
-<style src="./assets/main.scss" lang="scss"></style>
+<style src="./assets/main.css"></style>
