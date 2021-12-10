@@ -7,28 +7,28 @@
 ```html
 <div id="HcWaterProvidersApp"></div>
 
-<script src="https://commbocc.github.io/hc-water-providers/dist/build.js"></script>
+<script src="https://commbocc.github.io/hc-water-providers/build.js"></script>
 <script type="text/javascript">
-var app = new HcWaterProviders({
-  propsData: {
-    resultNoProvider: 'Outside Service Areas (Well/Septic)',
-    resultNoResult: 'Your water provider could not be determined.',
-    endpoints: {
-      areas: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/DSD_Viewer_Services/DSD_Viewer_Governance/MapServer/1',
-      hcWater: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/CSC_Viewer/Utilities_Service_Areas/MapServer/3',
-      hcWaste: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/CSC_Viewer/Utilities_Service_Areas/MapServer/2',
-      cotWaste: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/CSC_Viewer/Utilities_Service_Areas/MapServer/1',
-      cotWater: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/CSC_Viewer/Utilities_Service_Areas/MapServer/0',
-      providers: 'https://commbocc.github.io/hc-water-providers/dist/providers.json'
+  var app = new HcWaterProviders({
+    propsData: {
+      resultNoProvider: "Outside Service Areas (Well/Septic)",
+      resultNoResult: "Your water provider could not be determined.",
+      endpoints: {
+        areas:
+          "https://maps.hillsboroughcounty.org/arcgis/rest/services/DSD_Viewer_Services/DSD_Viewer_Governance/MapServer/1",
+        hcWater:
+          "https://maps.hillsboroughcounty.org/arcgis/rest/services/CSC_Viewer/Utilities_Service_Areas/MapServer/3",
+        hcWaste:
+          "https://maps.hillsboroughcounty.org/arcgis/rest/services/CSC_Viewer/Utilities_Service_Areas/MapServer/2"
+      }
     }
-  }
-}).$mount('#HcWaterProvidersApp')
+  }).$mount("#HcWaterProvidersApp");
 </script>
 ```
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 npm install
 

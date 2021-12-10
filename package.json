@@ -7,8 +7,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules && npm run providers",
-    "providers": "node providers.js"
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
     "hc-esri-search-widget": "git+https://github.com/Commbocc/hc-esri-search-widget.git",

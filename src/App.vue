@@ -31,25 +31,21 @@
 <script>
 import HcEsriSearchWidget from "hc-esri-search-widget";
 import Provider from "./components/Provider";
+import providers from "./providers.json";
 
 export default {
   name: "app",
-  props: [
-    "endpoints",
-    "resultNoProvider",
-    "resultNoProvider",
-    "resultNoResult"
-  ],
+  props: ["endpoints", "resultNoProvider", "resultNoResult"],
   components: { HcEsriSearchWidget, Provider },
   data() {
     return {
-      providers: [],
+      providers,
       foundAddr: null,
       incorporated: null,
       hcWater: null,
       hcWaste: null,
-      cotWater: null,
-      cotWaste: null,
+      // cotWater: null,
+      // cotWaste: null,
       waterProviderIndex: null,
       wasteProviderIndex: null
     };
@@ -60,12 +56,12 @@ export default {
       this.incorporated = null;
       this.hcWater = null;
       this.hcWaste = null;
-      this.cotWater = null;
-      this.cotWaste = null;
+      // this.cotWater = null;
+      // this.cotWaste = null;
       this.waterProviderIndex = null;
       this.wasteProviderIndex = null;
     },
-    handleResult(result) {
+    async handleResult(result) {
       if (result.result) {
         this.foundAddr = result.result.name;
       }
@@ -73,23 +69,19 @@ export default {
       let promises = [
         result.queryFeatures(this.endpoints.areas),
         result.queryFeatures(this.endpoints.hcWater),
-        result.queryFeatures(this.endpoints.hcWaste),
-        result.queryFeatures(this.endpoints.cotWaste),
-        result.queryFeatures(this.endpoints.cotWater)
+        result.queryFeatures(this.endpoints.hcWaste)
+        // result.queryFeatures(this.endpoints.cotWaste),
+        // result.queryFeatures(this.endpoints.cotWater)
       ];
 
-      Promise.all(promises)
-        .then(features => {
-          this.lookupIncorporated(features[0]);
-          this.lookupArea(features[1], "hcWater");
-          this.lookupArea(features[2], "hcWaste");
-          this.lookupArea(features[3], "cotWaste");
-          this.lookupArea(features[4], "cotWater");
-        })
-        .then(() => {
-          this.determineWater();
-          this.determineWaste();
-        });
+      const features = await Promise.all(promises);
+
+      this.lookupIncorporated(features[0]);
+      this.lookupArea(features[1], "hcWater");
+      this.lookupArea(features[2], "hcWaste");
+
+      this.determineWater();
+      this.determineWaste();
     },
     lookupIncorporated(feature) {
       this.incorporated = feature ? feature.attributes.LABEL : false;
@@ -103,7 +95,7 @@ export default {
         this.waterProviderIndex = 0;
       }
       // tampa?
-      else if (this.cotWater) {
+      else if (this.incorporated && this.incorporated == "TAMPA") {
         this.waterProviderIndex = 2;
       }
       // hillsborough?
@@ -121,7 +113,7 @@ export default {
         this.wasteProviderIndex = 0;
       }
       // tampa?
-      else if (this.cotWaste) {
+      else if (this.incorporated && this.incorporated == "TAMPA") {
         this.wasteProviderIndex = 2;
       }
       // hillsborough?
@@ -140,13 +132,6 @@ export default {
         return index;
       }
     }
-  },
-  created() {
-    fetch(this.endpoints.providers)
-      .then(res => res.json())
-      .then(providers => {
-        this.providers = providers;
-      });
   }
 };
 </script>
